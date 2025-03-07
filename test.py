@@ -19,6 +19,8 @@ from torch.utils.tensorboard import SummaryWriter
 from os.path import join
 import transformers
 import torch.nn.functional as F
+from sklearn.metrics import confusion_matrix
+import matplotlib.pyplot as plt
 
 def set_args():
     parser = argparse.ArgumentParser()
@@ -56,6 +58,17 @@ def evaluate(args, model, dataloader):
     acc=sum([truth[i]==pred[i] for i in range(len(truth))])/len(truth)
     return acc,eval_loss/len(dataloader),pred,truth
 
+def cm_plot(y, yp):
+    cm = confusion_matrix(y, yp)
+    plt.matshow(cm, cmap=plt.cm.Greens)
+    plt.colorbar()
+    for x in range(len(cm)):
+        for y in range(len(cm)):
+            plt.annotate(cm[x, y], xy=(y, x),verticalalignment='center',horizontalalignment='center')
+    plt.ylabel('True label')
+    plt.xlabel('Predicted label')
+    plt.show()
+
 if __name__ == '__main__':
     args = set_args()
     args.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -79,3 +92,4 @@ if __name__ == '__main__':
     df['label']=truth
     df['pred']=pred
     df.to_csv(args.output_path+'/predict.csv')
+    cm_plot(truth,pred)
