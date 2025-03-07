@@ -22,9 +22,9 @@ from typing import Tuple, Optional, Union
 import torch.nn.functional as F
 from loguru import logger
 
-class ClisperModel(nn.Module):
+class WhisPromptModel(nn.Module):
     def __init__(self,cls_num,prompt_len):
-        super(ClisperModel, self).__init__()
+        super(WhisPromptModel, self).__init__()
         self.cls_num=cls_num
         self.prompt_len=prompt_len
         
