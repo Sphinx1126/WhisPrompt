@@ -32,9 +32,9 @@ In this paper, we conducted experiments on three fine-grained tasks in total, in
 pip install -U openai-whisper
 ```
 2. Install the requirements from the `./requirements.txt`
-3. Run the `./01_preprocess.py` to convert the audio sample to log-Mel spectrograms and store it as a `.pkl` file.
-4. Run the `./02_train.py` to train WhisPAr and evaluate it on the valid set.
-5. Run the `./03_test.py` to evaluate WhisPAr on the test set and save the results.
+3. Run the `./preprocess.py` to convert the audio sample to log-Mel spectrograms and store it as a `.pkl` file.
+4. Run the `./train.py` to train WhisPAr and evaluate it on the valid set.
+5. Run the `./test.py` to evaluate WhisPAr on the test set and save the results.
 6. You may need to change the hyperparameters if necessary.
 
 ## Hyperparameters
