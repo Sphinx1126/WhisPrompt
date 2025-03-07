@@ -4,7 +4,7 @@ The code and data of "WhisPrompt: Audio Classification of Chinese Opera Genres b
 ## Datasets
 In this paper, we conducted experiments on three fine-grained tasks in total, including:  
 + COG (`./datasets/COG`) is a Chinese Opera Genre Data Set (COG) collected in a pre-experimental stage, which contains 12,000 samples evenly distributed across 6 opera genres.  
-+ Due to file size, the divided training set, test set, and validation set can be downloaded [here](https://njuedu-my.sharepoint.cn/:f:/g/personal/522022140097_365_nju_edu_cn/EhOOW6q6GYNCpn6fTJS-hf0BZ2l20Ekmjn4LKR8dmQNtHw?e=aLmt3H).  
++ Due to file size, the divided training set, test set, and validation set can be downloaded [OneDrive](https://njuedu-my.sharepoint.cn/:f:/g/personal/522022140097_365_nju_edu_cn/EhOOW6q6GYNCpn6fTJS-hf0BZ2l20Ekmjn4LKR8dmQNtHw?e=aLmt3H) or [Baidu Netdisk]().  
 + You can also experiment on your own dataset after splitting it into training set, test set and validation set, and putting the files under the directory `./data/XXX/`. Audio files in various formats (`.mp3`, `.wav`, `.ogg`, etc.) are supported, but the data should be organized as follows:
 
 ```
