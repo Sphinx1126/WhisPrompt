@@ -38,7 +38,7 @@ pip install -U openai-whisper
 6. You may need to change the hyperparameters if necessary.
 
 ## Hyperparameters
-You may need to change the hyperparameters in `./01_preprocess.py`, `./02_train.py` and `./03_test.py` for best performance according to your tasks. And here comes the expression of some important hyperparameters.  
+You may need to change the hyperparameters in `./preprocess.py`, `./train.py` and `./test.py` for best performance according to your tasks. And here comes the expression of some important hyperparameters.  
 + _data\_dir_: the directory name of your datasets. You should put your data under the directory `./data/data_name/`.  
 + _cls\_num_: the number of category in your datasets.  
 + _audio\_len_: the uniform duration to which an audio file is compressed/padded. Due to the limitations of the pre-trained Whisper, no more than 30s is allowed. Default to 30.  
