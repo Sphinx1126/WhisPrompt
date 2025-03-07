@@ -22,13 +22,13 @@ import torch.nn.functional as F
 
 def set_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--data_dir', default=r'../hy-tmp/bird/')
-    parser.add_argument('--output_path', default='../hy-tmp/output')
+    parser.add_argument('--data_dir', default=r'datasets/')
+    parser.add_argument('--output_path', default='output')
     parser.add_argument('--cls_num', type=int, default=6)
     parser.add_argument('--prompt_len', type=int, default=2)
     parser.add_argument("--lr", type=float, default=0.001, help='学习率')
     parser.add_argument('--epochs', type=int, default=100)
-    parser.add_argument('--bs_train', type=int, default=16)
+    parser.add_argument('--bs_train', type=int, default=8)
     parser.add_argument('--dev_size', type=int, default=10)
     parser.add_argument('--bs_eval', type=int, default=16)
     parser.add_argument('--num_workers', type=int, default=0)
@@ -108,12 +108,12 @@ if __name__ == '__main__':
     logger.info(args)
     writer = SummaryWriter(args.output_path)
         
-    model = ClisperModel(cls_num=args.cls_num,prompt_len=args.prompt_len).to(args.device)
+    model = WhisPromptModel(cls_num=args.cls_num,prompt_len=args.prompt_len).to(args.device)
     
-    train_dataset = ClisperDataset(args.data_dir+'train.pkl')
+    train_dataset = WhisPromptDataset(args.data_dir+'train.pkl')
     train_dataloader = DataLoader(train_dataset, batch_size=args.bs_train, shuffle=True)
     del train_dataset
-    val_dataset = ClisperDataset(args.data_dir+'valid.pkl')
+    val_dataset = WhisPromptDataset(args.data_dir+'valid.pkl')
     val_dataloader = DataLoader(val_dataset, batch_size=args.bs_eval, shuffle=False)
     del val_dataset
     
@@ -126,27 +126,9 @@ if __name__ == '__main__':
     del train_dataloader
     del val_dataloader
     
-    test_dataset = ClisperDataset(args.data_dir+'test.pkl')
+    test_dataset = WhisPromptDataset(args.data_dir+'test.pkl')
     test_dataloader = DataLoader(test_dataset, batch_size=args.bs_eval, shuffle=False)
     del test_dataset
     test_acc,test_loss,pred,truth=evaluate(args, model, test_dataloader)
     del test_dataloader
     logger.info('accuracy in Test Dataset is {}, loss is {}'.format(test_acc, test_loss.item()))
-    
-    df=pd.DataFrame()
-    df['label']=truth
-    df['pred']=pred
-    df.to_csv(args.output_path+'/predict.csv')
-    from sklearn.metrics import confusion_matrix
-    import matplotlib.pyplot as plt
-    def cm_plot(y, yp):
-        cm = confusion_matrix(y, yp)
-        plt.matshow(cm, cmap=plt.cm.Greens)
-        plt.colorbar()
-        for x in range(len(cm)):
-            for y in range(len(cm)):
-                plt.annotate(cm[x, y], xy=(y, x),verticalalignment='center',horizontalalignment='center')
-        plt.ylabel('True label')
-        plt.xlabel('Predicted label')
-        plt.show()
-    cm_plot(truth,pred)
